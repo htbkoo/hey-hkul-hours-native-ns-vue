@@ -15,13 +15,14 @@
   },
   "dependencies": {
     "@vue/devtools": "5.0.0-beta.3",
+    "hey-hkul-hours": "1.x.x",
     "nativescript-socket.io": "^0.9.0",
-    "nativescript-vue-devtools": "^1.0.0",
-    "nativescript-toast": "^1.4.6",
     "nativescript-theme-core": "^1.0.4",
+    "nativescript-toast": "^1.4.6",
     "nativescript-vue": "^2.0.0",
+    "nativescript-vue-devtools": "^1.0.0",
     "tns-core-modules": "^5.0.2",
-    "hey-hkul-hours": "1.x.x"
+    "vue-class-component": "^6.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
