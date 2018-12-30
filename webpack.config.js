@@ -94,7 +94,8 @@ module.exports = env => {
             alias: {
                 '~': appFullPath,
                 '@': appFullPath,
-                'vue': 'nativescript-vue'
+                'vue': 'nativescript-vue',
+                'vue$': 'nativescript-vue'
             },
             // resolve symlinks to symlinked modules
             symlinks: true,
@@ -190,6 +191,7 @@ module.exports = env => {
                 },
                 {
                     test: /\.ts$/,
+                    exclude: /node_modules|vue\/src/,
                     loader: 'ts-loader',
                     options: {
                         appendTsSuffixTo: [/\.vue$/],
