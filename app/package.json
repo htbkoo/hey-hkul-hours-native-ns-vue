@@ -1,0 +1,8 @@
+{
+  "android": {
+    "v8Flags": "--expose_gc"
+  },
+  "main": "main",
+  "name": "hey-hkul-hours-native-ns-vue",
+  "version": "0.1.0"
+}
