@@ -22,7 +22,8 @@
     "nativescript-vue": "^2.0.0",
     "nativescript-vue-devtools": "^1.0.0",
     "tns-core-modules": "^5.0.2",
-    "vue-class-component": "^6.3.2"
+    "vue-class-component": "^6.3.2",
+    "vue-property-decorator": "^7.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
