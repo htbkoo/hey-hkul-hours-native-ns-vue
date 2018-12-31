@@ -1,6 +1,6 @@
 <template>
     <Page>
-        <ActionBar :title="titleData" android:flat="true"/>
+        <ActionBar :title="title" android:flat="true"/>
         <TabView android:tabBackgroundColor="#53ba82"
                  android:tabTextColor="#c4ffdf"
                  android:selectedTabTextColor="#ffffff"
@@ -31,8 +31,12 @@
     export default {
         data() {
             return {
-                msg: 'Hello World!',
-                titleData: "Libraries Hours"
+                msg: 'Hello World!'
+            }
+        },
+        props: {
+            title: {
+                type: String
             }
         }
     }
