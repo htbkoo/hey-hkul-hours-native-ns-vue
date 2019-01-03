@@ -5,24 +5,13 @@
                  android:tabTextColor="#c4ffdf"
                  android:selectedTabTextColor="#ffffff"
                  androidSelectedTabHighlightColor="#ffffff">
-            <!--
-            <Place
-                    v-for="place in places"
-                    v-bind:key="place.id"
-                    v-bind:meta="place.meta"
-                    v-bind:banner="place.banner"
-                    v-bind:libraries="place.libraries"
-            />
-            -->
-
             <TabViewItem
                     v-for="place in places"
                     v-bind:key="place.id"
                     :title="place.meta.name">
                 <StackLayout columns="*" rows="*">
                     <Label class="message" :text="place.meta.location" col="0" row="0"/>
-                    <!--<Image src="res://icon" stretch="aspectFill" />-->
-                    <!--<Image :src="require(`@/assets/images/${banner.src}`)" stretch="aspectFit"/>-->
+                    <Label class="message" :text="`@/assets/images/${place.banner.src}`" col="0" row="0"/>
                     <Image :src="`@/assets/images/${place.banner.src}`" :alt="place.banner.alt" stretch="aspectFit"/>
                 </StackLayout>
             </TabViewItem>
@@ -31,14 +20,12 @@
 </template>
 
 <script lang="ts">
-    import Place from "@/components/Place.vue"
     import {LibraryProps} from "../types/LibraryProps";
 
     const libraries: LibraryProps[] = [];
 
     export default {
         components: {
-            Place
         },
         props: {
             title: {type: String,}
