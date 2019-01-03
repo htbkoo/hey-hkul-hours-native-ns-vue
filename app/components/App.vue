@@ -1,18 +1,27 @@
 <template>
     <Page>
         <ActionBar :title="title" android:flat="true"/>
-        <TabView android:tabBackgroundColor="#53ba82"
-                 android:tabTextColor="#c4ffdf"
-                 android:selectedTabTextColor="#ffffff"
+        <TabView tabBackgroundColor="#53ba82"
+                 tabTextColor="#c4ffdf"
+                 selectedTabTextColor="#ffffff"
                  androidSelectedTabHighlightColor="#ffffff">
             <TabViewItem
                     v-for="place in places"
                     v-bind:key="place.id"
-                    :title="place.meta.name">
+                    :title="`${place.meta.name} @ ${place.meta.location}`">
                 <StackLayout columns="*" rows="*">
-                    <Label class="message" :text="place.meta.location" col="0" row="0"/>
-                    <Label class="message" :text="`@/assets/images/${place.banner.src}`" col="0" row="0"/>
-                    <Image :src="`@/assets/images/${place.banner.src}`" :alt="place.banner.alt" stretch="aspectFit"/>
+                    <!--<Label class="message" :text="place.meta.location" col="0" row="0"/>-->
+                    <Image :src="`~/assets/images/${place.banner.src}`" :alt="place.banner.alt" stretch="aspectFit"/>
+                    <ListView for="item in listOfItems" @itemTap="onItemTap">
+                        <v-template>
+                            <Label :text="item.text"/>
+                        </v-template>
+
+                        <v-template if="$odd">
+                            <!-- For items with an odd index, shows the label in red. -->
+                            <Label :text="item.text" color="red"/>
+                        </v-template>
+                    </ListView>
                 </StackLayout>
             </TabViewItem>
         </TabView>
@@ -25,8 +34,7 @@
     const libraries: LibraryProps[] = [];
 
     export default {
-        components: {
-        },
+        components: {},
         props: {
             title: {type: String,}
         },
@@ -39,8 +47,19 @@
                         banner: {src: "hkul/wikipedia/hkul_banner.jpg", alt: "HKU Main Library"},
                         libraries
                     },
+                ],
+                listOfItems: [
+                    {text: "1"},
+                    {text: "2"},
+                    {text: "3"},
                 ]
             }
+        },
+        methods: {
+            onItemTap(event) {
+                console.log(event.index);
+                console.log(event.item);
+            },
         }
     }
 </script>
