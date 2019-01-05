@@ -12,9 +12,9 @@
                 <StackLayout columns="*" rows="*">
                     <!--<Label class="message" :text="place.meta.location" col="0" row="0"/>-->
                     <Image :src="`~/assets/images/${place.banner.src}`" :alt="place.banner.alt" stretch="aspectFit"/>
-                    <ListView for="item in listOfItems" @itemTap="onItemTap">
+                    <ListView for="library in place.libraries" @itemTap="onItemTap">
                         <v-template>
-                            <Label :text="item.text"/>
+                            <Label :text="item.name"/>
                         </v-template>
 
                         <v-template if="$odd">
@@ -29,9 +29,12 @@
 </template>
 
 <script lang="ts">
-    import {LibraryProps} from "../types/LibraryProps";
+    import {LibraryProps} from "@/types/LibraryProps";
+    import hkulDataPopulator from "@/services/hkulDataPopulator";
 
     const libraries: LibraryProps[] = [];
+
+    hkulDataPopulator.populateData().then(librariesProps => librariesProps.forEach(libraryProps => libraries.push(libraryProps)));
 
     export default {
         components: {},
