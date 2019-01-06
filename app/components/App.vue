@@ -44,21 +44,27 @@
                         id: 1,
                         meta: {name: "HKU Library", location: "Pok Fu Lam"},
                         banner: {src: "hkul/wikipedia/hkul_banner.jpg", alt: "HKU Main Library"},
-                        libraries: []
+                        libraries: [],
+                        refreshData() {
+                            console.log(`refreshing data`);
+                            console.log(`libraries: ${this.libraries}`);
+                            hkulDataPopulator.populateData()
+                                .then(librariesProps => {
+                                    console.log(`place name: ${this.meta.name}`);
+                                    console.log(`original libraries: ${this.libraries}`);
+                                    this.libraries = librariesProps.slice();
+                                    console.log(`after libraries: ${this.libraries}`);
+                                })
+                                .catch(console.error);
+                            console.log(`finished refreshing data`);
+                        }
                     },
                 ],
             }
         },
         created() {
-            console.log(`load data`);
-            hkulDataPopulator.populateData()
-                .then(librariesProps => {
-                    console.log(`places: ${this.places}`);
-                    console.log(`original libraries: ${this.places[0].libraries}`);
-                    this.places[0].libraries = librariesProps.slice();
-                    console.log(`after libraries: ${this.places[0].libraries}`);
-                })
-                .catch(console.error)
+            console.log(`refresh data for all places`);
+            this.places.forEach(place => place.refreshData());
         },
         methods: {
             onItemTap(event) {
