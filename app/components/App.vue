@@ -47,15 +47,13 @@
                         libraries: [],
                         refreshData() {
                             console.log(`refreshing data`);
-                            console.log(`libraries: ${this.libraries}`);
+                            console.log(`place name: ${this.meta.name}`);
+                            console.log(`libraries before: ${this.libraries}`);
+
                             hkulDataPopulator.populateData()
-                                .then(librariesProps => {
-                                    console.log(`place name: ${this.meta.name}`);
-                                    console.log(`original libraries: ${this.libraries}`);
-                                    this.libraries = librariesProps.slice();
-                                    console.log(`after libraries: ${this.libraries}`);
-                                })
+                                .then(librariesProps => this.libraries = librariesProps.slice())
                                 .catch(console.error);
+
                             console.log(`finished refreshing data`);
                         }
                     },
