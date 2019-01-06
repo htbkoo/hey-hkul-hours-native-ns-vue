@@ -1,6 +1,3 @@
-// jest.mock("timer");
-
-// import NativeHtmlParser from "@/services/NativeHtmlParser";
 import NativeHtmlParser from "../../app/services/NativeHtmlParser";
 
 import htmlResponseDec from "../resources/expectedHtmlFetchResponse_23-12-2018";
