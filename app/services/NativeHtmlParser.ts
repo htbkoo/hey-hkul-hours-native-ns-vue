@@ -7,7 +7,7 @@ export default class NativeHtmlParser implements HtmlParser {
     async parseHtml(html: string): Promise<RawStringsMap> {
         return promiseParseString(html)
             .then(extractAllRows)
-            .then(rows => rows.reduce(mapRowsToStringsMap, {}));
+            .then(mapRowsToStringsMap);
 
         function promiseParseString(html: string) {
             return new Promise((resolve, reject) =>
@@ -28,10 +28,13 @@ export default class NativeHtmlParser implements HtmlParser {
             return allTrs.map(tr => tr.$$);
         }
 
-        function mapRowsToStringsMap(obj, row) {
+        function mapRowsToStringsMap(rows) {
+            return rows.reduce(addRowToMap, {})
+        }
+
+        function addRowToMap(obj, row) {
             const [key, value] = row.td;
 
-            // typeof result.div.table[0].tr[0].td[0]
             if (typeof key === "string") {
                 obj[key] = value;
             } else if (typeof key === "object") {
