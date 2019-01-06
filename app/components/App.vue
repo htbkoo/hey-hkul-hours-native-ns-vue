@@ -15,11 +15,10 @@
                         <v-template>
                             <StackLayout columns="*" rows="*">
                                 <Label class="message" :text="library.name"/>
-                                <ListView for="session in library.hours.asArray()" @itemTap="onItemTap">
-                                    <v-template>
-                                        <Session :session="session"/>
-                                    </v-template>
-                                </ListView>
+                                <Label class="message" :text="library.hours.asArray().length"/>
+                                <StackLayout columns="*" rows="*" v-for="session in library.hours.asArray()">
+                                    <Session :session="session"/>
+                                </StackLayout>
                             </StackLayout>
                         </v-template>
                     </ListView>
