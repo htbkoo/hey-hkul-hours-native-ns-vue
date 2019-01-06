@@ -15,10 +15,16 @@
                         <v-template>
                             <StackLayout columns="*" rows="*">
                                 <Label class="message" :text="library.name"/>
-                                <Label class="message" :text="library.hours.asArray().length"/>
                                 <StackLayout columns="*" rows="*" v-for="session in library.hours.asArray()">
                                     <Session :session="session"/>
                                 </StackLayout>
+                            </StackLayout>
+                        </v-template>
+
+                        <v-template if="library.hours.isClosed()">
+                            <StackLayout columns="*" rows="*">
+                                <Label class="message" :text="library.name"/>
+                                <Label text="Closed"/>
                             </StackLayout>
                         </v-template>
                     </ListView>
