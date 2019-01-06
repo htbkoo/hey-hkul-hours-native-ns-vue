@@ -3,7 +3,7 @@ import NativeHtmlParser from "../../app/services/NativeHtmlParser";
 import htmlResponseDec from "../resources/expectedHtmlFetchResponse_23-12-2018";
 import htmlResponseJan from "../resources/expectedHtmlFetchResponse_05-01-2019";
 
-describe("nativeHtmlParser", function () {
+describe("NativeHtmlParser", function () {
     [
         {
             month: "Dec-2018",
