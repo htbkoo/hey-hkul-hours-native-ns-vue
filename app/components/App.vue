@@ -28,13 +28,7 @@
 </template>
 
 <script lang="ts">
-    import {LibraryProps} from "@/types/LibraryProps";
     import hkulDataPopulator from "@/services/hkulDataPopulator";
-    import Hours from "hey-hkul-hours/dist/service/hour/model/Hours";
-
-    const libraries: LibraryProps[] = [
-        {name: "testLib", hours: Hours.closed()}
-    ];
 
     console.log(`at App`);
 
@@ -50,24 +44,25 @@
                         id: 1,
                         meta: {name: "HKU Library", location: "Pok Fu Lam"},
                         banner: {src: "hkul/wikipedia/hkul_banner.jpg", alt: "HKU Main Library"},
-                        libraries
+                        libraries: []
                     },
                 ],
-                listOfItems: [
-                    {text: "1"},
-                    {text: "2"},
-                    {text: "3"},
-                ]
             }
+        },
+        created() {
+            console.log(`load data`);
+            hkulDataPopulator.populateData()
+                .then(librariesProps => {
+                    console.log(`places: ${this.places}`);
+                    console.log(`original libraries: ${this.places[0].libraries}`);
+                    this.places[0].libraries = librariesProps.slice();
+                    console.log(`after libraries: ${this.places[0].libraries}`);
+                })
+                .catch(console.error)
         },
         methods: {
             onItemTap(event) {
                 console.log(`index: ${event.index}`);
-                console.log(`load data`);
-                hkulDataPopulator.populateData()
-                    .then(librariesProps => librariesProps.forEach(libraryProps => libraries.push(libraryProps)))
-                    .catch(console.error)
-                // console.log(event.item);
             },
         }
     }
