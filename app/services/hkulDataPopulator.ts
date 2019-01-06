@@ -3,14 +3,12 @@ import moment from "moment";
 import {AllZonesHours} from "hey-hkul-hours/dist/service/hour/model/LibraryHours";
 import {LibraryProps} from "@/types/LibraryProps";
 import {HkuLibraryHoursFetcher} from "hey-hkul-hours";
-import mockHtmlFetcher from "./mockHtmlFetcher";
-import mockHtmlParser from "@/services/mockHtmlParser";
+import NativeHtmlParser from "@/services/NativeHtmlParser";
 
 export default {
     populateData() {
         return new HkuLibraryHoursFetcher({
-            htmlFetcher: mockHtmlFetcher,
-            htmlParser: mockHtmlParser
+            htmlParser: new NativeHtmlParser()
         }).retrieveHours(moment())
             .then(libraryHours => {
                     const hoursForAllZones = libraryHours.getHoursForAllZones();

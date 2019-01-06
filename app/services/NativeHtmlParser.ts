@@ -16,7 +16,7 @@ export default class NativeHtmlParser implements HtmlParser {
                         console.log(`Error caught @ NativeHtmlParser.parseHtml: ${err}`);
                         reject(err);
                     } else {
-                        console.log(`Parsing html @ NativeHtmlParser.parseHtml:${result}`);
+                        console.log(`Parsing html @ NativeHtmlParser.parseHtml: ${html}`);
                         resolve(result);
                     }
                 })
@@ -34,6 +34,7 @@ export default class NativeHtmlParser implements HtmlParser {
 
         function addRowToMap(obj, row) {
             const [key, value] = row.td;
+            console.log(`Adding key:"${key}" and value:"${value}" to map`);
 
             if (typeof key === "string") {
                 obj[key] = value;
