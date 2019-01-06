@@ -3,7 +3,7 @@
 android {
   defaultConfig {  
     generatedDensities = []
-    applicationId = "__PACKAGE__"
+    applicationId = "org.hkul.hours.hey"
   }
   aaptOptions {  
     additionalParameters "--no-version-vectors"  
