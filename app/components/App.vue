@@ -10,16 +10,15 @@
                     v-bind:key="place.id"
                     :title="`${place.meta.name} @ ${place.meta.location}`">
                 <StackLayout columns="*" rows="*">
-                    <!--<Label class="message" :text="place.meta.location" col="0" row="0"/>-->
                     <Image :src="`~/assets/images/${place.banner.src}`" :alt="place.banner.alt" stretch="aspectFit"/>
                     <ListView for="library in place.libraries" @itemTap="onItemTap">
                         <v-template>
-                            <Label :text="item.name"/>
+                            <Label class="message" :text="library.name"/>
                         </v-template>
 
                         <v-template if="$odd">
                             <!-- For items with an odd index, shows the label in red. -->
-                            <Label :text="item.text" color="red"/>
+                            <Label class="message" :text="library.name" color="red"/>
                         </v-template>
                     </ListView>
                 </StackLayout>
@@ -31,10 +30,13 @@
 <script lang="ts">
     import {LibraryProps} from "@/types/LibraryProps";
     import hkulDataPopulator from "@/services/hkulDataPopulator";
+    import Hours from "hey-hkul-hours/dist/service/hour/model/Hours";
 
-    const libraries: LibraryProps[] = [];
+    const libraries: LibraryProps[] = [
+        {name: "testLib", hours: Hours.closed()}
+    ];
 
-    hkulDataPopulator.populateData().then(librariesProps => librariesProps.forEach(libraryProps => libraries.push(libraryProps)));
+    console.log(`at App`);
 
     export default {
         components: {},
@@ -60,8 +62,12 @@
         },
         methods: {
             onItemTap(event) {
-                console.log(event.index);
-                console.log(event.item);
+                console.log(`index: ${event.index}`);
+                console.log(`load data`);
+                hkulDataPopulator.populateData()
+                    .then(librariesProps => librariesProps.forEach(libraryProps => libraries.push(libraryProps)))
+                    .catch(console.error)
+                // console.log(event.item);
             },
         }
     }
