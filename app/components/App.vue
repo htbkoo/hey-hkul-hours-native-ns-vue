@@ -13,12 +13,14 @@
                     <Image :src="`~/assets/images/${place.banner.src}`" :alt="place.banner.alt" stretch="aspectFit"/>
                     <ListView for="library in place.libraries" @itemTap="onItemTap">
                         <v-template>
-                            <Label class="message" :text="library.name"/>
-                        </v-template>
-
-                        <v-template if="$odd">
-                            <!-- For items with an odd index, shows the label in red. -->
-                            <Label class="message" :text="library.name" color="red"/>
+                            <StackLayout columns="*" rows="*">
+                                <Label class="message" :text="library.name"/>
+                                <ListView for="session in library.hours.asArray()" @itemTap="onItemTap">
+                                    <v-template>
+                                        <Session :session="session"/>
+                                    </v-template>
+                                </ListView>
+                            </StackLayout>
                         </v-template>
                     </ListView>
                 </StackLayout>
@@ -29,11 +31,14 @@
 
 <script lang="ts">
     import hkulDataPopulator from "@/services/hkulDataPopulator";
+    import Session from "@/components/Session.vue";
 
     console.log(`at App`);
 
     export default {
-        components: {},
+        components: {
+            Session
+        },
         props: {
             title: {type: String,}
         },
