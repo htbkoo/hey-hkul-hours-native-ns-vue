@@ -9,11 +9,18 @@ type FormattedHour = {
 
 export default class Session {
     format(session: Hour): FormattedHour {
-        const from = session.getFrom().format(TIME_FORMAT);
-        return {
-            from,
-            to: formatEndTime(session),
-        };
+        if (session.isClosed()) {
+            return {
+                from: "Closed",
+                to: "Closed",
+            }
+        } else {
+            const from = session.getFrom().format(TIME_FORMAT);
+            return {
+                from,
+                to: formatEndTime(session),
+            };
+        }
 
         function formatEndTime(session): string {
             const to = session.getTo();

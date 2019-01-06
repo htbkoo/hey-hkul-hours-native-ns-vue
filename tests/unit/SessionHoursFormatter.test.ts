@@ -20,6 +20,13 @@ describe("SessionHoursFormatter", function () {
                 to: "00:34 (+1)",
             }
         },
+        {
+            scenario: "session that is closed", isClosed: true,
+            expectedFormattedSession: {
+                from: "Closed",
+                to: "Closed",
+            }
+        },
     ].forEach(({scenario, from = INVALID_MOMENT, to = INVALID_MOMENT, isClosed = false, expectedFormattedSession}) =>
         it(`should, for ${scenario}, format session hour`, function () {
             // given
