@@ -1,37 +1,85 @@
 <template>
     <Page>
-        <ActionBar title="Welcome to NativeScript-Vue!" android:flat="true"/>
-        <TabView android:tabBackgroundColor="#53ba82"
-                 android:tabTextColor="#c4ffdf"
-                 android:selectedTabTextColor="#ffffff"
+        <ActionBar :title="title" android:flat="true"/>
+        <TabView tabBackgroundColor="#53ba82"
+                 tabTextColor="#c4ffdf"
+                 selectedTabTextColor="#ffffff"
                  androidSelectedTabHighlightColor="#ffffff">
-            <TabViewItem title="Tab 1">
-                <GridLayout columns="*" rows="*">
-                    <Label class="message" :text="msg" col="0" row="0"/>
-                </GridLayout>
-            </TabViewItem>
-            <TabViewItem title="Tab 2">
-                <GridLayout columns="*" rows="*">
-                    <Label class="message" text="Tab 2 Content" col="0" row="0"/>
-                </GridLayout>
-            </TabViewItem>
-            <TabViewItem title="Tab 3">
-                <GridLayout columns="*" rows="*">
-                    <Label class="message" text="Tab 3 Content" col="0" row="0"/>
-                </GridLayout>
+            <TabViewItem
+                    v-for="place in places"
+                    v-bind:key="place.id"
+                    :title="`${place.meta.name} @ ${place.meta.location}`">
+                <StackLayout columns="*" rows="*">
+                    <Image :src="`~/assets/images/${place.banner.src}`" :alt="place.banner.alt" stretch="aspectFit"/>
+                    <ListView for="library in place.libraries" @itemTap="onItemTap">
+                        <v-template>
+                            <StackLayout columns="*" rows="*">
+                                <Label class="message" :text="library.name"/>
+                                <StackLayout columns="*" rows="*" v-for="session in library.hours.asArray()">
+                                    <Session :session="session"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </v-template>
+
+                        <v-template if="library.hours.isClosed()">
+                            <StackLayout columns="*" rows="*">
+                                <Label class="message" :text="library.name"/>
+                                <Label text="Closed"/>
+                            </StackLayout>
+                        </v-template>
+                    </ListView>
+                </StackLayout>
             </TabViewItem>
         </TabView>
     </Page>
 </template>
 
-<script>
-  export default {
-    data() {
-      return {
-        msg: 'Hello World!'
-      }
+<script lang="ts">
+    import hkulDataPopulator from "@/services/hkulDataPopulator";
+    import Session from "@/components/Session.vue";
+
+    console.log(`at App`);
+
+    export default {
+        components: {
+            Session
+        },
+        props: {
+            title: {type: String,}
+        },
+        data() {
+            return {
+                places: [
+                    {
+                        id: 1,
+                        meta: {name: "HKU Library", location: "Pok Fu Lam"},
+                        banner: {src: "hkul/wikipedia/hkul_banner.jpg", alt: "HKU Main Library"},
+                        libraries: [],
+                        refreshData() {
+                            console.log(`refreshing data`);
+                            console.log(`place name: ${this.meta.name}`);
+                            console.log(`libraries before: ${this.libraries}`);
+
+                            hkulDataPopulator.populateData()
+                                .then(librariesProps => this.libraries = librariesProps.slice())
+                                .catch(console.error);
+
+                            console.log(`finished refreshing data`);
+                        }
+                    },
+                ],
+            }
+        },
+        created() {
+            console.log(`refresh data for all places`);
+            this.places.forEach(place => place.refreshData());
+        },
+        methods: {
+            onItemTap(event) {
+                console.log(`index: ${event.index}`);
+            },
+        }
     }
-  }
 </script>
 
 <style scoped>

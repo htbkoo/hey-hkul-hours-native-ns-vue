@@ -11,5 +11,9 @@ Vue.config.silent = (TNS_ENV === 'production');
 
 
 new Vue({
-    render: h => h('frame', [h(App)])
+    render: h => h('frame', [h(App, {
+        props: {
+            title: "Libraries Hours"
+        }
+    })]),
 }).$start();

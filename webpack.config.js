@@ -50,7 +50,7 @@ module.exports = env => {
         return new RegExp(e + ".*");
     });
 
-    const mode = production ? "production" : "development"
+    const mode = production ? "production" : "development";
 
     const appFullPath = resolve(projectRoot, appPath);
     const appResourcesFullPath = resolve(projectRoot, appResourcesPath);
