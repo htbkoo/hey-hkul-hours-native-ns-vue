@@ -15,7 +15,7 @@ export default {
             .then(libraryHours => {
                     const hoursForAllZones = libraryHours.getHoursForAllZones();
                     const allZones = Object.keys(hoursForAllZones);
-                    console.debug(`retrieved library hours - # of zones: ${allZones.length}`);
+                    console.log(`retrieved library hours - # of zones: ${allZones.length}`);
                     return allZones.map(toLibraryProps(hoursForAllZones));
                 }
             );
