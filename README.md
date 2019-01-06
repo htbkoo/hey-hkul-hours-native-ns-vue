@@ -2,6 +2,9 @@
 
 > The native client to utilize `hey-hkul-hours` to quickly retrieve the opening hours built with `NativeScript-Vue`
 
+## Built packages
+Pre-Built packages (`apk` only at this moment) can be found [here](https://github.com/htbkoo/hey-hkul-hours-native-ns-vue/tree/master/built_packages)
+
 ## Usage
 
 ``` bash
