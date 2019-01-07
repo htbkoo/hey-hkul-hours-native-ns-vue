@@ -35,6 +35,7 @@
     "nativescript-toast": "^1.4.6",
     "nativescript-vue": "^2.0.0",
     "nativescript-vue-devtools": "^1.0.0",
+    "nativescript-wear-os": "^0.1.0",
     "nativescript-xml2js": "^0.5.2",
     "tns-core-modules": "^5.0.2",
     "vue-class-component": "^6.3.2",
