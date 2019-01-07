@@ -4,6 +4,10 @@
   "description": "The native client to utilize `hey-hkul-hours` to quickly retrieve the opening hours built with `NativeScript-Vue`",
   "author": "htbkoo <h1017760@connect.hku.hk>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/htbkoo/hey-hkul-hours-native-ns-vue.git"
+  },
   "scripts": {
     "test": "jest",
     "preview": "tns preview --bundle",
