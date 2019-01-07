@@ -6,10 +6,10 @@ import {HkuLibraryHoursFetcher} from "hey-hkul-hours";
 import NativeHtmlParser from "@/services/NativeHtmlParser";
 
 export default {
-    populateData() {
+    populateData(date = moment()) {
         return new HkuLibraryHoursFetcher({
             htmlParser: new NativeHtmlParser()
-        }).retrieveHours(moment())
+        }).retrieveHours(date)
             .then(libraryHours => {
                     const hoursForAllZones = libraryHours.getHoursForAllZones();
                     const allZones = Object.keys(hoursForAllZones);

@@ -2,7 +2,6 @@
     <StackLayout columns="*" rows="*">
         <Image :src="`~/assets/images/${place.banner.src}`" :alt="place.banner.alt" stretch="aspectFit"/>
         <Button :text="selectedDateAsString" @tap="onDateButtonTap"/>
-        <!--<DatePicker v-model="selectedDate"/>-->
         <ListView for="library in place.libraries" @itemTap="onItemTap">
             <v-template>
                 <StackLayout columns="*" rows="*">
@@ -38,17 +37,17 @@
             Session
         },
         props: {
-            place: {}
+            place: {},
+            date: {},
+            onDateChange: {},
         },
         data() {
-            return {
-                selectedDate: now
-            }
+            return {}
         },
         computed: {
             // a computed getter
             selectedDateAsString: function () {
-                return this.selectedDate.format("D-MMM-YYYY").toString();
+                return this.date.format("D-MMM-YYYY").toString();
             }
         },
         methods: {
@@ -59,7 +58,7 @@
                 console.log("onDateButtonTap");
 
                 return dateTimePicker.showDateModal()
-                    .then(date => this.selectedDate = date)
+                    .then(this.onDateChange)
                     .catch(error => console.log("Error caught when picking date: " + error));
             }
         }

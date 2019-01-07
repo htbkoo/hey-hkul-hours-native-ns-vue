@@ -10,7 +10,7 @@
                     v-for="place in places"
                     v-bind:key="place.id"
                     :title="formattedTitle(place)">
-                <Place :place="place"/>
+                <Place :place="place" :date="date" :onDateChange="onDateChange"/>
             </TabViewItem>
         </TabView>
     </Page>
@@ -19,6 +19,7 @@
 <script lang="ts">
     import hkulDataPopulator from "@/services/hkulDataPopulator";
     import Place from "@/components/Place.vue";
+    import moment from "moment";
 
     console.log(`at App`);
 
@@ -37,12 +38,12 @@
                         meta: {name: "HKU Library", location: "Pok Fu Lam"},
                         banner: {src: "hkul/wikipedia/hkul_banner.jpg", alt: "HKU Main Library"},
                         libraries: [],
-                        refreshData() {
+                        refreshData(date) {
                             console.log(`refreshing data`);
                             console.log(`place name: ${this.meta.name}`);
                             console.log(`libraries before: ${this.libraries}`);
 
-                            hkulDataPopulator.populateData()
+                            hkulDataPopulator.populateData(date)
                                 .then(librariesProps => this.libraries = librariesProps.slice())
                                 .catch(console.error);
 
@@ -50,17 +51,25 @@
                         }
                     },
                 ],
+                date: moment()
             }
         },
         methods: {
             formattedTitle(place) {
                 return `${place.meta.name}
 @ ${place.meta.location}`;
+            },
+            onDateChange(date) {
+                this.date = date;
+                this.refreshAllData();
+            },
+            refreshAllData() {
+                this.places.forEach(place => place.refreshData(this.date));
             }
         },
         created() {
             console.log(`refresh data for all places`);
-            this.places.forEach(place => place.refreshData());
+            this.places.forEach(place => place.refreshData(this.date));
         },
     }
 </script>
