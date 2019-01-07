@@ -4,11 +4,13 @@
         <TabView tabBackgroundColor="#53ba82"
                  tabTextColor="#c4ffdf"
                  selectedTabTextColor="#ffffff"
-                 androidSelectedTabHighlightColor="#ffffff">
+                 androidSelectedTabHighlightColor="#ffffff"
+                 androidTabsPosition="bottom">
             <TabViewItem
                     v-for="place in places"
                     v-bind:key="place.id"
-                    :title="`${place.meta.name} @ ${place.meta.location}`">
+                    :title="`${place.meta.name}
+@ ${place.meta.location}`">
                 <Place :place="place"/>
             </TabViewItem>
         </TabView>
