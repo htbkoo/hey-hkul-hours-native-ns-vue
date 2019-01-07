@@ -9,8 +9,7 @@
             <TabViewItem
                     v-for="place in places"
                     v-bind:key="place.id"
-                    :title="`${place.meta.name}
-@ ${place.meta.location}`">
+                    :title="formattedTitle(place)">
                 <Place :place="place"/>
             </TabViewItem>
         </TabView>
@@ -51,6 +50,12 @@
                         }
                     },
                 ],
+            }
+        },
+        methods: {
+            formattedTitle(place) {
+                return `${place.meta.name}
+@ ${place.meta.location}`;
             }
         },
         created() {
