@@ -1,7 +1,7 @@
 <template>
     <StackLayout columns="*" rows="*">
         <Image :src="`~/assets/images/${place.banner.src}`" :alt="place.banner.alt" stretch="aspectFit"/>
-        <Button :text="selectedDateAsString" @tap="onDateButtonTap"/>
+        <Button class="date-button" :text="selectedDateAsString" @tap="onDateButtonTap"/>
         <ListView for="library in place.libraries" @itemTap="onItemTap">
             <v-template>
                 <StackLayout columns="*" rows="*">
@@ -71,5 +71,10 @@
         text-align: center;
         font-size: 20;
         color: #333333;
+    }
+
+    .date-button {
+        background-color: #53ba82;
+        color: #ffffff;
     }
 </style>
