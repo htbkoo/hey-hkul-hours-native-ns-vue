@@ -57,7 +57,7 @@
             onDateButtonTap() {
                 console.log("onDateButtonTap");
 
-                return dateTimePicker.showDateModal()
+                return dateTimePicker.showDateModal(this.date.toDate())
                     .then(this.onDateChange)
                     .catch(error => console.log("Error caught when picking date: " + error));
             }
