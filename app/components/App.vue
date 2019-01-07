@@ -9,26 +9,7 @@
                     v-for="place in places"
                     v-bind:key="place.id"
                     :title="`${place.meta.name} @ ${place.meta.location}`">
-                <StackLayout columns="*" rows="*">
-                    <Image :src="`~/assets/images/${place.banner.src}`" :alt="place.banner.alt" stretch="aspectFit"/>
-                    <ListView for="library in place.libraries" @itemTap="onItemTap">
-                        <v-template>
-                            <StackLayout columns="*" rows="*">
-                                <Label class="message" :text="library.name"/>
-                                <StackLayout columns="*" rows="*" v-for="session in library.hours.asArray()">
-                                    <Session :session="session"/>
-                                </StackLayout>
-                            </StackLayout>
-                        </v-template>
-
-                        <v-template if="library.hours.isClosed()">
-                            <StackLayout columns="*" rows="*">
-                                <Label class="message" :text="library.name"/>
-                                <Label text="Closed"/>
-                            </StackLayout>
-                        </v-template>
-                    </ListView>
-                </StackLayout>
+                <Place :place="place"/>
             </TabViewItem>
         </TabView>
     </Page>
@@ -36,13 +17,13 @@
 
 <script lang="ts">
     import hkulDataPopulator from "@/services/hkulDataPopulator";
-    import Session from "@/components/Session.vue";
+    import Place from "@/components/Place.vue";
 
     console.log(`at App`);
 
     export default {
         components: {
-            Session
+            Place,
         },
         props: {
             title: {type: String,}
@@ -74,11 +55,6 @@
             console.log(`refresh data for all places`);
             this.places.forEach(place => place.refreshData());
         },
-        methods: {
-            onItemTap(event) {
-                console.log(`index: ${event.index}`);
-            },
-        }
     }
 </script>
 
@@ -86,12 +62,5 @@
     ActionBar {
         background-color: #53ba82;
         color: #ffffff;
-    }
-
-    .message {
-        vertical-align: center;
-        text-align: center;
-        font-size: 20;
-        color: #333333;
     }
 </style>
