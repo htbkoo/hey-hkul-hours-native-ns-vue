@@ -26,7 +26,7 @@
 <script lang="ts">
     import Session from "@/components/Session.vue";
     import moment from "moment";
-    import {ModalDatetimepicker} from "nativescript-modal-datetimepicker";
+    import dateTimePicker from "@/components/dateTimePicker";
 
     console.log(`at Place`);
 
@@ -58,41 +58,9 @@
             onDateButtonTap() {
                 console.log("onDateButtonTap");
 
-                const picker = new ModalDatetimepicker();
-
-                picker.pickDate({
-                    title: "Select Date", // iOS only
-                    theme: "light", // ios only
-                    startingDate: this.selectedDate.toDate(),
-                    datePickerMode: "calendar",
-                }).then(result => {
-                    // Note the month is 1-12 (unlike js which is 0-11)
-                    const date = `${result.day}-${result.month}-${result.year}`;
-                    console.log(`Date is: ${date}`);
-
-                    // var jsdate = new Date(result.year, result.month - 1, result.day);
-                    this.selectedDate = moment(date, "D-M-YYYY")
-                }).catch(error => {
-                    console.log("Error: " + error);
-                });
-
-                // Pick Date
-                // exports.selectDate = function() {};
-
-                /*
-                // Pick Time
-                exports.selectTime = function() {
-                    picker
-                        .pickTime()
-                        .then(result => {
-                            console.log("Time is: " + result.hour + ":" + result.minute);
-                        })
-                        .catch(error => {
-                            console.log("Error: " + error);
-                        });
-                };
-                */
-
+                return dateTimePicker.showDateModal()
+                    .then(date => this.selectedDate = date)
+                    .catch(error => console.log("Error caught when picking date: " + error));
             }
         }
     }
