@@ -2,14 +2,17 @@ import moment from "moment";
 
 import {AllZonesHours} from "hey-hkul-hours/dist/service/hour/model/LibraryHours";
 import {LibraryProps} from "@/types/LibraryProps";
-import {HkuLibraryHoursFetcher} from "hey-hkul-hours";
-import NativeHtmlParser from "@/services/NativeHtmlParser";
+import {LibraryHoursFetcher} from "hey-hkul-hours";
 
-export default {
+export default class {
+    private fetcher: LibraryHoursFetcher;
+
+    constructor(fetcher: LibraryHoursFetcher) {
+        this.fetcher = fetcher;
+    }
+
     populateData(date = moment()) {
-        return new HkuLibraryHoursFetcher({
-            htmlParser: new NativeHtmlParser()
-        }).retrieveHours(date)
+        return this.fetcher.retrieveHours(date)
             .then(libraryHours => {
                     const hoursForAllZones = libraryHours.getHoursForAllZones();
                     const allZones = Object.keys(hoursForAllZones);

@@ -17,11 +17,17 @@
 </template>
 
 <script lang="ts">
-    import hkulDataPopulator from "@/services/HkulDataPopulator";
+    import HkulDataPopulator from "@/services/HkulDataPopulator";
+    import {HkuLibraryHoursFetcher} from "hey-hkul-hours";
+    import NativeHtmlParser from "@/services/NativeHtmlParser";
     import Place from "@/components/Place.vue";
     import moment from "moment";
 
     console.log(`at App`);
+
+    const hkulDataPopulator = new HkulDataPopulator(
+        new HkuLibraryHoursFetcher({htmlParser: new NativeHtmlParser()})
+    );
 
     export default {
         components: {
