@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-    import hkulDataPopulator from "@/services/hkulDataPopulator";
+    import hkulDataPopulator from "@/services/HkulDataPopulatorB";
     import Place from "@/components/Place.vue";
     import moment from "moment";
 
