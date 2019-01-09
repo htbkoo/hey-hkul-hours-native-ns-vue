@@ -30,7 +30,7 @@
     console.log(`at Place`);
 
     const now = moment();
-    console.log(`${now.format("dd-MMM-YYYY").toString()}`);
+    console.log(`${now.format("DD-MMM-YYYY").toString()}`);
 
     export default {
         components: {
