@@ -1,6 +1,10 @@
 <template>
     <Page>
-        <ActionBar :title="title" android:flat="true"/>
+        <ActionBar :title="title" android:flat="true">
+            <ActionItem @tap="onTapSettings"
+                        :ios.systemIcon="IOS_SYSTEM_ICON_BOOKMARK" ios.position="right"
+                        text="Settings" android.position="popup"/>
+        </ActionBar>
         <TabView tabBackgroundColor="#53ba82"
                  tabTextColor="#c4ffdf"
                  selectedTabTextColor="#ffffff"
@@ -17,11 +21,12 @@
 </template>
 
 <script lang="ts">
+    import moment from "moment";
     import HkulDataPopulator from "@/services/HkulDataPopulator";
     import {HkuLibraryHoursFetcher} from "hey-hkul-hours";
     import NativeHtmlParser from "@/services/NativeHtmlParser";
     import Place from "@/components/Place.vue";
-    import moment from "moment";
+    import Settings from "@/components/Settings.vue";
 
     console.log(`at App`);
 
@@ -31,7 +36,7 @@
 
     export default {
         components: {
-            Place,
+            Place, Settings
         },
         props: {
             title: {type: String,}
@@ -57,7 +62,8 @@
                         }
                     },
                 ],
-                date: moment()
+                date: moment(),
+                IOS_SYSTEM_ICON_BOOKMARK: "11"
             }
         },
         methods: {
@@ -71,6 +77,10 @@
             },
             refreshAllData() {
                 this.places.forEach(place => place.refreshData(this.date));
+            },
+            onTapSettings() {
+                console.log(`Tapped "Settings"`);
+                return this.$showModal(Settings, {props: {libraryDataPopulator: hkulDataPopulator}});
             }
         },
         created() {
