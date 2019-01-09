@@ -13,7 +13,9 @@
     "preview": "tns preview --bundle",
     "device": "tns device",
     "run:android": "tns run android --bundle",
+    "runWithTypings:android": "tns run android --bundle --androidTypings",
     "debug:android": "tns debug android --bundle",
+    "clean:android": "tns platform clean android",
     "build:android": "tns build android --bundle"
   },
   "nativescript": {
@@ -31,6 +33,7 @@
     "moment": "^2.23.0",
     "nativescript-local-notifications": "^3.1.0",
     "nativescript-modal-datetimepicker": "^1.1.12",
+    "nativescript-plugin-firebase": "^7.6.1",
     "nativescript-socket.io": "^0.9.0",
     "nativescript-theme-core": "^1.0.4",
     "nativescript-toast": "^1.4.6",
@@ -42,10 +45,10 @@
     "vue-property-decorator": "^7.2.0"
   },
   "devDependencies": {
-    "@types/node": "^10.12.18",
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@types/jest": "^23.3.11",
+    "@types/node": "^10.12.18",
     "babel-loader": "^8.0.2",
     "babel-traverse": "6.26.0",
     "babel-types": "6.26.0",
@@ -61,6 +64,7 @@
     "node-sass": "^4.9.2",
     "sass-loader": "^7.1.0",
     "terser-webpack-plugin": "^1.1.0",
+    "tns-platform-declarations": "^5.1.1",
     "ts-jest": "^23.10.5",
     "typescript": "^3.2.2",
     "vue": "^2.5.21",
