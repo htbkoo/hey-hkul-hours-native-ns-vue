@@ -16,7 +16,8 @@
     "runWithTypings:android": "tns run android --bundle --androidTypings",
     "debug:android": "tns debug android --bundle",
     "clean:android": "tns platform clean android",
-    "build:android": "tns build android --bundle"
+    "build:android": "tns build android --bundle",
+    "adb:killServer": "adb kill-server"
   },
   "nativescript": {
     "id": "org.hkul.hours.hey",
