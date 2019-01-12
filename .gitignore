@@ -167,4 +167,7 @@ src/**/*.js
 tests/**/*.js
 unused/
 **/*.map
+
+# reference: https://stackoverflow.com/a/37359108
+/app/App_Resources/Android/google-services.json
 ## Personal --- end

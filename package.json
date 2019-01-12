@@ -1,16 +1,23 @@
 {
   "name": "hey-hkul-hours-native-ns-vue",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "The native client to utilize `hey-hkul-hours` to quickly retrieve the opening hours built with `NativeScript-Vue`",
   "author": "htbkoo <h1017760@connect.hku.hk>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/htbkoo/hey-hkul-hours-native-ns-vue.git"
+  },
   "scripts": {
     "test": "jest",
     "preview": "tns preview --bundle",
     "device": "tns device",
     "run:android": "tns run android --bundle",
+    "runWithTypings:android": "tns run android --bundle --androidTypings",
     "debug:android": "tns debug android --bundle",
-    "build:android": "tns build android --bundle"
+    "clean:android": "tns platform clean android",
+    "build:android": "tns build android --bundle",
+    "adb:killServer": "adb kill-server"
   },
   "nativescript": {
     "id": "org.hkul.hours.hey",
@@ -25,7 +32,9 @@
     "@vue/devtools": "5.0.0-beta.3",
     "hey-hkul-hours": "2.x.x",
     "moment": "^2.23.0",
+    "nativescript-local-notifications": "^3.1.0",
     "nativescript-modal-datetimepicker": "^1.1.12",
+    "nativescript-plugin-firebase": "^7.6.1",
     "nativescript-socket.io": "^0.9.0",
     "nativescript-theme-core": "^1.0.4",
     "nativescript-toast": "^1.4.6",
@@ -37,10 +46,10 @@
     "vue-property-decorator": "^7.2.0"
   },
   "devDependencies": {
-    "@types/node": "^10.12.18",
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@types/jest": "^23.3.11",
+    "@types/node": "^10.12.18",
     "babel-loader": "^8.0.2",
     "babel-traverse": "6.26.0",
     "babel-types": "6.26.0",
@@ -56,6 +65,7 @@
     "node-sass": "^4.9.2",
     "sass-loader": "^7.1.0",
     "terser-webpack-plugin": "^1.1.0",
+    "tns-platform-declarations": "^5.1.1",
     "ts-jest": "^23.10.5",
     "typescript": "^3.2.2",
     "vue": "^2.5.21",

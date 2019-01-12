@@ -1,3 +1,5 @@
+require("nativescript-plugin-firebase");
+
 import Vue from 'nativescript-vue'
 import App from './components/App.vue'
 // import VueDevtools from 'nativescript-vue-devtools'
