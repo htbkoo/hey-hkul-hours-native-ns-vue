@@ -29,17 +29,19 @@ export const push_notification_daily_open_hours = functions.pubsub
         console.log(`Received daily tick, pushing notification through FCM for the opening hours for today: ${moment().format("DD-MM-YYYY")}`);
         processTickMessage(message);
 
+        const today = moment().format("DD-MM-YYYY");
+
         const payload = {
             notification: {
-                title: `hey-hkul-hours: ${moment().format("DD-MM-YYYY")}`,
-                body: `hello, try day: ${moment().format("DD-MM-YYYY")}`
+                title: `hey-hkul-hours: ${today}`,
+                body: `hello, try day: ${today}`
             },
             data: {}
         };
 
         return firebaseAdmin.messaging().sendToTopic(HEY_HKUL_HOURS_FCM_TOPIC_NAME, payload)
             .then(result => {
-                console.log('Finished pushing notification through FCM for the opening hours for today: ${}');
+                console.log(`Finished pushing notification through FCM for the opening hours for today: ${today}`);
                 return result;
             });
     });

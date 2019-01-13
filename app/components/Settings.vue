@@ -18,7 +18,8 @@
     import notificationInstaller from "@/components/notificationInstaller";
     import {messaging} from "nativescript-plugin-firebase/messaging";
     import * as application from 'tns-core-modules/application';
-    import {HEY_HKUL_HOURS_FCM_TOPIC_NAME} from "../../constants/firebaseCloudMessaging";
+    // import {HEY_HKUL_HOURS_FCM_TOPIC_NAME} from "../../constants/firebaseCloudMessaging";
+    const HEY_HKUL_HOURS_FCM_TOPIC_NAME = "hey_hkul_hours_fcm_daily";
 
     const getCircularReplacer = () => {
         const seen = new WeakSet;
@@ -83,11 +84,12 @@
                             console.log("Push message received in push-view-model: " + JSON.stringify(message, getCircularReplacer()));
 
                             setTimeout(() => {
-                                alert({
-                                    title: "Push message!",
-                                    message: (message !== undefined && message.title !== undefined ? message.title : ""),
-                                    okButtonText: "Sw33t"
-                                });
+                                // alert({
+                                //     title: "Push message!",
+                                //     message: (message !== undefined && message.title !== undefined ? message.title : ""),
+                                //     okButtonText: "Sw33t"
+                                // });
+                                console.log("opened" + JSON.stringify(message, getCircularReplacer()));
                             }, 500);
                         }
                     ),
@@ -103,8 +105,8 @@
             onUnregisterButtonTap() {
                 console.log("onUnregisterButtonTap");
                 const promiseUnregisterCallbacks = Promise.all([
-                    messaging.subscribeToTopic(HEY_HKUL_HOURS_FCM_TOPIC_NAME),
-                    messaging.unregisterForPushNotifications()
+                    messaging.unsubscribeFromTopic(HEY_HKUL_HOURS_FCM_TOPIC_NAME),
+                    // messaging.unregisterForPushNotifications()
                 ]);
 
                 return promiseUnregisterCallbacks
