@@ -98,6 +98,7 @@
 
                 return promiseAddCallbacks.then(() => {
                     console.log("Added addOnPushTokenReceivedCallback and addOnMessageReceivedCallback");
+                    console.log(`Subscribed to topic "${HEY_HKUL_HOURS_FCM_TOPIC_NAME}"`);
                 }, err => {
                     console.log("Failed to add addOnPushTokenReceivedCallback or addOnMessageReceivedCallback: " + err);
                 });
