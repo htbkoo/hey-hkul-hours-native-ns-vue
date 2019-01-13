@@ -18,6 +18,20 @@
     import notificationInstaller from "@/components/notificationInstaller";
     import {messaging} from "nativescript-plugin-firebase/messaging";
     import * as application from 'tns-core-modules/application';
+    import {HEY_HKUL_HOURS_FCM_TOPIC_NAME} from "../../constants/firebaseCloudMessaging";
+
+    const getCircularReplacer = () => {
+        const seen = new WeakSet;
+        return (key, value) => {
+            if (typeof value === "object" && value !== null) {
+                if (seen.has(value)) {
+                    return;
+                }
+                seen.add(value);
+            }
+            return value;
+        };
+    };
 
     console.log(`at Settings`);
 
@@ -54,7 +68,31 @@
                 console.log(`senderIdResourceId: ${senderIdResourceId}`);
                 console.log("after onScheduleButtonTap");
 
-                const promiseAddCallbacks = Promise.resolve();
+                const promiseAddCallbacks = Promise.all([
+                    messaging.addOnPushTokenReceivedCallback(
+                        token => {
+                            // you can use this token to send to your own backend server,
+                            // so you can send notifications to this specific device
+                            console.log("Firebase plugin received a push token: " + token);
+                            // var pasteboard = utils.ios.getter(UIPasteboard, UIPasteboard.generalPasteboard);
+                            // pasteboard.setValueForPasteboardType(token, kUTTypePlainText);
+                        }
+                    ),
+                    messaging.addOnMessageReceivedCallback(
+                        message => {
+                            console.log("Push message received in push-view-model: " + JSON.stringify(message, getCircularReplacer()));
+
+                            setTimeout(() => {
+                                alert({
+                                    title: "Push message!",
+                                    message: (message !== undefined && message.title !== undefined ? message.title : ""),
+                                    okButtonText: "Sw33t"
+                                });
+                            }, 500);
+                        }
+                    ),
+                    messaging.subscribeToTopic(HEY_HKUL_HOURS_FCM_TOPIC_NAME)
+                ]);
 
                 return promiseAddCallbacks.then(() => {
                     console.log("Added addOnPushTokenReceivedCallback and addOnMessageReceivedCallback");
@@ -64,8 +102,12 @@
             },
             onUnregisterButtonTap() {
                 console.log("onUnregisterButtonTap");
+                const promiseUnregisterCallbacks = Promise.all([
+                    messaging.subscribeToTopic(HEY_HKUL_HOURS_FCM_TOPIC_NAME),
+                    messaging.unregisterForPushNotifications()
+                ]);
 
-                return messaging.unregisterForPushNotifications()
+                return promiseUnregisterCallbacks
                     .then(() => console.log("Unregistered For Push Notifications"))
                     .catch(err => console.log(`Failed to Unregistered For Push Notifications: ${err}`));
             },
