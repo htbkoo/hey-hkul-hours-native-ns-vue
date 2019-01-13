@@ -18,8 +18,7 @@
     import notificationInstaller from "@/components/notificationInstaller";
     import {messaging} from "nativescript-plugin-firebase/messaging";
     import * as application from 'tns-core-modules/application';
-    // import {HEY_HKUL_HOURS_FCM_TOPIC_NAME} from "../../constants/firebaseCloudMessaging";
-    const HEY_HKUL_HOURS_FCM_TOPIC_NAME = "hey_hkul_hours_fcm_daily";
+    import {HEY_HKUL_HOURS_FCM_TOPIC_NAME} from "../../constants/firebaseCloudMessaging";
 
     const getCircularReplacer = () => {
         const seen = new WeakSet;
