@@ -1,9 +1,7 @@
 import * as functions from 'firebase-functions';
 import firebaseAdmin from "firebase-admin";
 import moment from "moment";
-// import {HEY_HKUL_HOURS_FCM_TOPIC_NAME} from "../../../constants/firebaseCloudMessaging";
-// import {HEY_HKUL_HOURS_FCM_TOPIC_NAME} from "../../../constants/firebaseCloudMessaging";
-export const HEY_HKUL_HOURS_FCM_TOPIC_NAME = "hey_hkul_hours_fcm_daily";
+import {HEY_HKUL_HOURS_FCM_TOPIC_NAME} from "../../../constants/firebaseCloudMessaging";
 
 firebaseAdmin.initializeApp(functions.config().firebase);
 
