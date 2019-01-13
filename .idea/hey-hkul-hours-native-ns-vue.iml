@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/tests/unit" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests/resources" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/firebase/.firebase" />
       <excludeFolder url="file://$MODULE_DIR$/hooks" />
       <excludeFolder url="file://$MODULE_DIR$/platforms" />
     </content>
