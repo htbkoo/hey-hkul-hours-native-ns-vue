@@ -93,7 +93,7 @@
                         }
                     ),
                     messaging.subscribeToTopic(HEY_HKUL_HOURS_FCM_TOPIC_NAME)
-                ]);
+                ] as any);
 
                 return promiseAddCallbacks.then(() => {
                     console.log("Added addOnPushTokenReceivedCallback and addOnMessageReceivedCallback");
@@ -107,7 +107,7 @@
                 const promiseUnregisterCallbacks = Promise.all([
                     messaging.unsubscribeFromTopic(HEY_HKUL_HOURS_FCM_TOPIC_NAME),
                     // messaging.unregisterForPushNotifications()
-                ]);
+                ] as any);
 
                 return promiseUnregisterCallbacks
                     .then(() => console.log("Unregistered For Push Notifications"))
