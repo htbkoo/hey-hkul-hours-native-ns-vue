@@ -1,11 +1,14 @@
 import * as functions from 'firebase-functions';
 import firebaseAdmin from "firebase-admin";
 import moment from "moment";
-import {HEY_HKUL_HOURS_FCM_TOPIC_NAME} from "../../../constants/firebaseCloudMessaging";
+import {getHourlyTopicName, HEY_HKUL_HOURS_FCM_TOPIC_NAME,} from "../../../constants/firebaseCloudMessaging";
 import {HkuLibraryHoursFetcher} from "hey-hkul-hours";
 import LibraryHours from "hey-hkul-hours/dist/service/hour/model/LibraryHours";
 import Hours from "hey-hkul-hours/dist/service/hour/model/Hours";
 import Session from "../../../app/services/SessionHoursFormatter";
+
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 
 firebaseAdmin.initializeApp(functions.config().firebase);
 
@@ -25,31 +28,32 @@ export const hourly_job = functions.pubsub
     .topic('hourly-tick')
     .onPublish((message) => {
         console.log("This job is run every hour!");
-        processTickMessage(message);
-
-        return true;
+        const hourInDay = moment().format("HH");
+        return pushNotification({message, frequency: "hourly", topicName: getHourlyTopicName(hourInDay)});
     });
 
 export const push_notification_daily_open_hours = functions.pubsub
     .topic('daily-tick')
-    .onPublish(message => {
-        const now = moment();
-        const todayString = now.format("DD-MM-YYYY");
+    .onPublish(message => pushNotification({message, frequency: `daily`, topicName: HEY_HKUL_HOURS_FCM_TOPIC_NAME}));
 
-        console.log(`Received daily tick, pushing notification through FCM for the opening hours for today: ${todayString}`);
-        processTickMessage(message);
+function pushNotification({message, frequency, topicName}) {
+    const now = moment();
+    const todayString = now.format("DD-MM-YYYY");
 
-        return hkuLibraryHoursFetcher.retrieveHours(now)
-            .then(hours => {
-                const payload = createPayloadFromHours(hours);
+    console.log(`Received ${frequency} tick, pushing notification through FCM for the opening hours for today: ${todayString}`);
+    processTickMessage(message);
 
-                return firebaseAdmin.messaging().sendToTopic(HEY_HKUL_HOURS_FCM_TOPIC_NAME, payload)
-            })
-            .then(result => {
-                console.log(`Finished pushing notification through FCM for the opening hours for today: ${todayString}`);
-                return result;
-            });
-    });
+    return hkuLibraryHoursFetcher.retrieveHours(now)
+        .then(hours => {
+            const payload = createPayloadFromHours(hours);
+
+            return firebaseAdmin.messaging().sendToTopic(topicName, payload)
+        })
+        .then(result => {
+            console.log(`Finished pushing notification through FCM for the opening hours for today: ${todayString}`);
+            return result;
+        });
+}
 
 function processTickMessage(message) {
     if (message.data) {
